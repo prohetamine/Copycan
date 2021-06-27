@@ -41,11 +41,6 @@
    "name": "Copycan",
    "offline_enabled": true,
    "optional_permissions": [ "downloads" ],
-   "options_ui": {
-      "chrome_style": false,
-      "open_in_tab": true,
-      "page": "options.html"
-   },
    "permissions": [ "notifications", "unlimitedStorage", "tabs", "idle", "webNavigation", "webRequest", "webRequestBlocking", "storage", "contextMenus", "chrome://favicon/", "clipboardWrite", "cookies", "declarativeContent", "\u003Call_urls>" ],
    "short_name": "Tampermonkey",
    "update_url": "https://clients2.google.com/service/update2/crx",
