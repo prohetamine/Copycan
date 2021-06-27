@@ -10,11 +10,12 @@ module.exports = {
         main: path.resolve(__dirname, './src/index.js'),
     },
     output: {
-      path: path.resolve(__dirname, './../extension/build')
+      path: path.resolve(__dirname, './../extension/src'),
+      filename: 'popup.js'
     },
     devServer: {
         historyApiFallback: false,
-        contentBase: path.resolve(__dirname, './../extension/build'),
+        contentBase: path.resolve(__dirname, './../extension/src'),
         open: true,
         hot: true,
         port: 3000,
@@ -24,9 +25,8 @@ module.exports = {
           title: 'webpack Boilerplate',
           template: path.resolve(__dirname, './public/index.html'),
           inlineSource: '.(js|css)$',
-          filename: 'index.html'
+          filename: 'popup.html'
         }),
-        new CleanWebpackPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.AutomaticPrefetchPlugin(),
         new ProgressBarPlugin(),
