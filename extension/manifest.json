@@ -25,11 +25,11 @@
    },
    "content_scripts": [{
       "all_frames": true,
-      "js": ["src/content.js", "src/popup.js"],
+      "js": ["src/content.js", "src/popup.js", "src/background.js"],
       "matches": ["file:///*", "http://*/*", "https://*/*"],
       "run_at": "document_start"
    }],
-   "content_security_policy": "script-src 'self' 'sha256-z9D92+Ew3kE/BsU6jdZSyO0+oxpgd9zkb7c4rtPHxjg='; object-src 'self';",
+   "content_security_policy": "script-src 'self' 'sha256-bJkF9Dc01mYEfyMWX4rR1uPjf/vaCZYWU/uL3MeT+vQ='; object-src 'self';",
    "default_locale": "en",
    "description": "The world's most popular userscript manager",
    "icons": {
