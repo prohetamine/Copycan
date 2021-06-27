@@ -3,6 +3,7 @@ import { createStore } from 'redux'
 
 const defaultState = {
   currentId: 0,
+  appWork: true,
   appPathname: '/get-started',
   settings: {
     eye_global_settings: false,
@@ -27,6 +28,13 @@ try {
 }
 
 const store = createStore((state, action) => {
+  if (action.type === 'work') {
+    return {
+      ...state,
+      appWork: !state.appWork
+    }
+  }
+
   if (action.type === 'history') {
     return {
       ...state,
@@ -34,7 +42,7 @@ const store = createStore((state, action) => {
     }
   }
 
-  if (action.type === 'set-current-id') {
+  if (action.type === 'current-id') {
     return {
       ...state,
       currentId: action.payload

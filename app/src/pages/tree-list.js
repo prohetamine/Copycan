@@ -36,7 +36,7 @@ const TreeList = () => {
         trees.map(({ id, title }, key) => (
           <LinkButton
             key={key}
-            onClick={() => dispatch({ type: 'set-current-id', payload: id })}
+            onClick={() => dispatch({ type: 'current-id', payload: id })}
             to='/tree-tab/?to=true'
             color='green'
             icon='arrow'

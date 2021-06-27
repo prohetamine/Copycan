@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Link, useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import { useDispatch, useSelector } from 'react-redux'
 import { COLORS, ICONS } from './../assets'
 
 const Body = styled.div`
@@ -97,11 +98,13 @@ const Button = (props) => {
 }
 
 const Navigation = () => {
+  const dispatch = useDispatch()
+  const appWork = useSelector(store => store.appWork)
   const { pathname } = useLocation()
 
   return (
     <Body>
-      <Button onClick={() => console.log('click')} color='red' icon='offon' />
+      <Button onClick={() => dispatch({ type: 'work' })} color={appWork ? 'red' : 'green'} icon='offon' />
       <LinkButton
         style={{ pointerEvents: pathname === '/tree-list-settings' ? 'none' : 'auto' }}
         to='/tree-list-settings?to=true'

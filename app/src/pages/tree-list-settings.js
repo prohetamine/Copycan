@@ -194,7 +194,7 @@ const TreeListSettings = () => {
         store.trees.map(({ id, title }, key) => (
           <LinkButton
             key={key}
-            onClick={() => dispatch({ type: 'set-current-id', payload: id })}
+            onClick={() => dispatch({ type: 'current-id', payload: id })}
             to='/tree-tab-settings?to=true'
             color='blue'
             icon='arrow'

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import { useDispatch } from 'react-redux'
 import { COLORS, ICONS } from './../assets'
 
 const Body = styled.div`
@@ -70,13 +71,20 @@ const LinkButton = (props) => {
 }
 
 const Back = () => {
+  const dispatch = useDispatch()
+
   const clearId = () => {
     window.localStorage.currentId = undefined
   }
 
   return (
     <Body>
-      <LinkButton onClick={() => clearId()} to='/tree-list?to=true' color='blue' icon='arrowleft' />
+      <LinkButton
+        onClick={() => dispatch({ type: 'current-id', id: 0 })}
+        to='/tree-list?to=true'
+        color='blue'
+        icon='arrowleft'
+      />
     </Body>
   )
 }
