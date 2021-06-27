@@ -4,53 +4,132 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>Background</title>
 </head>
 <body>
-  <style>
-
-  </style>
   <script>
-    let stopper = ['', 0]
+    const Notify = message => new Promise(res => {
+      const notifyId = Math.random()+''
 
-    chrome.runtime.onMessage.addListener(({ type, copy, date, link, time }) => {
-      if (type === 'copycan') {
-        const { trees, settings } = JSON.parse(window.localStorage.data)
-        const id = window.localStorage.currentId
+      chrome.notifications.create(notifyId, {
+        type: 'basic',
+        iconUrl: '../assets/empty.png',
+        title: 'Copycan',
+        message,
+        priority: 2
+      })
 
-        /*if (settings.ctrlCx3) {
-          if (stopper[0] === copy || stopper[1] < 2) {
-            stopper[1]++
+      chrome.notifications.onClicked.addListener(() => {
+        chrome.notifications.clear(notifyId)
+        res(true)
+        chrome.notifications.onClicked.removeListener(arguments.callee)
+      })
+      setTimeout(() => {
+        chrome.notifications.clear(notifyId)
+        res(false)
+      }, 6000)
+    })
+
+    const copycan = async ({
+      type = 'text',
+      copy = '',
+      id = (new Date() - 0).toString().slice(0, -3),
+      link = 'Без ссылки',
+      time = (d => (m => m.toString().length > 1 ? m : '0'+m)(d.getHours())+':'+(m => m.toString().length > 1 ? m : '0'+m)(d.getMinutes()))(new Date()),
+      date = (d => (d => d.toString().length > 1 ? d : '0'+d)(d.getDate())+'/'+(m => m.toString().length > 1 ? m : '0'+m)(d.getMonth())+'/'+d.getFullYear())(new Date())
+    }) => {
+      let state = JSON.parse(window.localStorage.appData)
+      const currentId = state.currentId
+      const current = state.trees.find(tree => tree.id === currentId) || false
+      const isText = !!(type === 'text')
+
+      if (!state.appWork) {
+        return
+      }
+
+      if (!!current) {
+        const { settings } = current
+
+        let text = copy.length === 0 ? 'Без текста' : copy
+
+        if (settings.save_time) {
+          text += `\n\nВремя: ${time}`
+        }
+
+        if (settings.save_time && settings.save_date) {
+          text += `, дата: ${date}`
+        } else {
+          text += `\n\nДата: ${date}`
+        }
+
+        if (settings.save_link && link) {
+          text += `\nСсылка: ${link}`
+        }
+
+        if (isText && settings.cancel_event) {
+          const isCopy = !(await Notify('Нажми чтобы отменить копирование'))
+
+          if (!isCopy) {
             return
           }
-        }*/
-
-        if (id === undefined) {
-          return
         }
 
-        if (copy.length === 0) {
-          return
+        if (!isText) {
+          const isCopy = await Notify('Нажми чтобы копировать ссылку на файл')
+
+          if (!isCopy) {
+            return
+          }
         }
 
-        const row = { copy, date, link, time }
+        try {
+          settings.urls.map(url =>
+            fetch(url.replace('=copycan', `=${encodeURIComponent(text)}`))
+          )
+        } catch (e) {}
 
-        window.localStorage.data = JSON.stringify({
-          trees: trees.map(
-                  tree =>
-                    tree.id === id
-                      ? ({
-                          ...tree,
-                          tab: [row, ...tree.tab]
-                        })
-                      : tree
-                 ),
-          settings
-        })
-
-        stopper = ['', 0]
+        state = {
+          ...state,
+          trees: state.trees.map(
+            tree => tree.id === currentId
+              ? ({
+                    ...tree,
+                    tabHistory: [
+                      {
+                        text,
+                        id
+                      },
+                      ...tree.tabHistory
+                    ]
+                })
+              : tree
+          )
+        }
       }
+
+      window.localStorage.appData = JSON.stringify(state)
+    }
+
+    chrome.tabs.onActiveChanged.addListener(id => {
+      chrome.tabs.get(id, ({
+        pendingUrl = ''
+      } = {}) => {
+        if (!pendingUrl.match(/\.(png|jpeg|jpg|gif|svg|mp4|mp3|ogg|wav|webp|webm|pdf|bmp|doc|хls|pst|swf|djvu|avi|flv|stl)$/gi)) {
+          return
+        }
+
+        const link = false
+            , copy = pendingUrl
+
+        copycan({
+          copy,
+          link,
+          type: 'image'
+        })
+      })
     })
+
+    chrome.runtime.onMessage.addListener(copycan)
   </script>
 </body>
 </html>

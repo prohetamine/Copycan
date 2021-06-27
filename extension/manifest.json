@@ -26,10 +26,10 @@
    "content_scripts": [{
       "all_frames": true,
       "js": ["src/content.js", "src/popup.js"],
-      "matches": [ "file:///*", "http://*/*", "https://*/*" ],
+      "matches": ["file:///*", "http://*/*", "https://*/*"],
       "run_at": "document_start"
    }],
-   "content_security_policy": "script-src 'self' 'sha256-4qzdRJX1NtYCLBe/+Y3i/qxDPrn+UlYJt6+wEMFRcVQ='; object-src 'self';",
+   "content_security_policy": "script-src 'self' 'sha256-9tST0cN1mxsjp4axfH5n+GX8dzpzxBsybOKr0XUvbGM='; object-src 'self';",
    "default_locale": "en",
    "description": "The world's most popular userscript manager",
    "icons": {
@@ -41,8 +41,8 @@
    "name": "Copycan",
    "offline_enabled": true,
    "optional_permissions": ["downloads"],
-   "permissions": [ "notifications", "unlimitedStorage", "tabs", "idle", "webNavigation", "webRequest", "webRequestBlocking", "storage", "contextMenus", "chrome://favicon/", "clipboardWrite", "cookies", "declarativeContent", "\u003Call_urls>" ],
-   "short_name": "Tampermonkey",
+   "permissions": [ "notifications", "unlimitedStorage", "tabs", "idle", "alarms", "webNavigation", "webRequest", "webRequestBlocking", "storage", "contextMenus", "chrome://favicon/", "clipboardWrite", "cookies", "declarativeContent", "\u003Call_urls>" ],
+   "short_name": "Copycan",
    "update_url": "https://clients2.google.com/service/update2/crx",
    "version": "1.0.0",
    "manifest_version": 2

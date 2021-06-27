@@ -1,21 +1,26 @@
+const noneCopy = '<#!!!! NO TEXT COPY !!!!#>' // null text
+let copy = noneCopy
+
 document.addEventListener('copy', (event) => {
-    event.clipboardData.setData('text/test', 'sum text here')
-    const selection = document.getSelection()
+    const text = window
+                .getSelection()
+                .toString()
+                .replace(/\u200B/g, "")
 
-    const range = selection.getRangeAt(0)
-    const div = document.createElement('div')
-    div.appendChild(range.cloneContents())
-    const copy = div.innerText
+    const clipboardData = event.clipboardData || window.clipboardData || event.originalEvent.clipboardData
+    clipboardData.setData('text/html', text)
+    copy = text
 
-    if (copy.length < 3000) {
-      chrome.runtime.sendMessage({
-        type: 'copycan',
-        copy,
-        time: new Date() - 0,
-        date: new Date() - 0,
-        link: location.href
-      }, function (response) {})
-    }
+    setTimeout(() => {
+      copy = noneCopy
+    }, 1000)
+})
 
-    event.clipboardData.setData('text/html', copy)
-});
+document.addEventListener('paste', (event) => {
+  if (copy !== noneCopy && copy.length < 3000) {
+    chrome.runtime.sendMessage({
+      copy,
+      link: location.href
+    }, function (response) {})
+  }
+})
