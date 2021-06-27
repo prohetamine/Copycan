@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <style>
+
+  </style>
+  <script>
+    let stopper = ['', 0]
+
+    chrome.runtime.onMessage.addListener(({ type, copy, date, link, time }) => {
+      if (type === 'copycan') {
+        const { trees, settings } = JSON.parse(window.localStorage.data)
+        const id = window.localStorage.currentId
+
+        /*if (settings.ctrlCx3) {
+          if (stopper[0] === copy || stopper[1] < 2) {
+            stopper[1]++
+            return
+          }
+        }*/
+
+        if (id === undefined) {
+          return
+        }
+
+        if (copy.length === 0) {
+          return
+        }
+
+        const row = { copy, date, link, time }
+
+        window.localStorage.data = JSON.stringify({
+          trees: trees.map(
+                  tree =>
+                    tree.id === id
+                      ? ({
+                          ...tree,
+                          tab: [row, ...tree.tab]
+                        })
+                      : tree
+                 ),
+          settings
+        })
+
+        stopper = ['', 0]
+      }
+    })
+  </script>
+</body>
+</html>
