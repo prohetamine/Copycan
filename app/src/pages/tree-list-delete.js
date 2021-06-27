@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import { useDispatch, useSelector } from 'react-redux'
 import { Route, useHistory } from 'react-router-dom'
 import { motion } from 'framer-motion'
 
@@ -22,25 +23,22 @@ const Body = styled.div`
   }
 `
 
-const TreeList = () => {
-  const { trees, settings } = JSON.parse(window.localStorage.data)
-  const [list, setList] = useState(trees)
-
-  useEffect(() => {
-    const { trees, settings } = JSON.parse(window.localStorage.data)
-
-    window.localStorage.data = JSON.stringify({
-      trees: list,
-      settings
-    })
-  }, [list.length])
+const TreeListDelete = () => {
+  const trees = useSelector(store => store.trees)
+  const dispatch = useDispatch()
 
   return (
-    <Body isHeight={list.length >= 2}>
+    <Body isHeight={trees.length >= 2}>
       <Logo />
       <Navigation />
       <Button
-        onClick={() => setList(l => [])}
+        onClick={
+          () =>
+            dispatch({
+              type: 'update-tree',
+              payload: []
+            })
+        }
         color='red'
         icon='delete'
         style={{ marginBottom: '17px' }}
@@ -48,10 +46,19 @@ const TreeList = () => {
         Удалить все
       </Button>
       {
-        list.map(({ id, title }, key) => (
+        trees.map(({ id, title }, key) => (
           <Button
             key={key}
-            onClick={() => setList(l => l.filter(t => t.id !== id))}
+            onClick={
+              () =>
+                dispatch({
+                  type: 'update-tree',
+                  payload: trees.filter(
+                            tree =>
+                              tree.id !== id
+                           )
+                })
+            }
             color='blue'
             icon='delete'
             style={{ marginBottom: '17px' }}
@@ -65,4 +72,4 @@ const TreeList = () => {
   )
 }
 
-export default TreeList
+export default TreeListDelete

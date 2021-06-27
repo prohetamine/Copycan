@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import { motion } from 'framer-motion'
 import createId from './../lib/create-id.js'
 
@@ -19,25 +20,14 @@ const Body = styled.div`
 `
 
 const GetStarted = () => {
+  const dispatch = useDispatch()
   const history = useHistory()
 
   const createTree = () => {
-    const { trees, settings } = JSON.parse(window.localStorage.data)
-
-    window.localStorage.data = JSON.stringify({
-      trees: [
-        ...trees,
-        {
-          title: '#' + parseInt(Math.random() * 100) + 899,
-          date_create: 100000000000,
-          id: createId(),
-          settings,
-          tab: []
-        }
-      ],
-      settings
+    dispatch({
+      type: 'create-tree',
+      payload: '#' + parseInt(Math.random() * 100) + 899
     })
-
     history.push('/tree-list?to=true')
   }
 

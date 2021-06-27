@@ -12,21 +12,6 @@ import TreeListDelete from './pages/tree-list-delete'
 import TreeTab from './pages/tree-tab'
 
 const App = () => {
-  const history = useHistory()
-
-  useEffect(() => {
-    const location = window.localStorage.appPathname
-    history.push(location)
-  }, [])
-
-  useEffect(() => {
-    history.listen(({ pathname }) => {
-      window.localStorage.appPathname = pathname
-    })
-
-    return () => history.unlisten()
-  }, [])
-
   const location = useLocation()
 
   return (
@@ -73,11 +58,11 @@ const App = () => {
           }
         />
         <Route
-          path='/tree-tab-settings/:id'
+          path='/tree-tab-settings'
           component={
-            location => (
+            () => (
               <AnimationPages>
-                <TreeTabSettings location={location} />
+                <TreeTabSettings />
               </AnimationPages>
             )
           }
@@ -93,9 +78,9 @@ const App = () => {
           }
         />
         <Route
-          path='/tree-tab/:id'
+          path='/tree-tab'
           component={
-            location => (
+            () => (
               <AnimationPages>
                 <TreeTab location={location} />
               </AnimationPages>

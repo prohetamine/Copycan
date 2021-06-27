@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Route, Link, useHistory, useLocation } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
 import { motion } from 'framer-motion'
 import queryString from 'query-string'
 
@@ -58,51 +59,43 @@ const Textarea = styled.textarea`
   margin-bottom: 14px;
 `
 
-const TreeTab = ({ location }) => {
-  const { trees, settings: _settings } = JSON.parse(window.localStorage.data)
+const TreeTab = () => {
+  const store = useSelector(store => store)
+  const dispatch = useDispatch()
 
-  const id = location.match.params.id
-      , { settings, title, tab } = trees.find(tree => tree.id === id)
-
-  const [rows, setRow] = useState(tab)
-
-  useEffect(() => {
-    window.localStorage.currentId = id
-  }, [id])
-
-  useEffect(() => {
-    window.localStorage.data = JSON.stringify({
-      trees: trees.map(
-              tree =>
-                tree.id === id
-                  ? ({
-                      ...tree,
-                      tab: rows
-                    })
-                  : tree
-             ),
-      settings: _settings
-    })
-  }, [rows.length, rows.map(({ copy }) => copy).join('+')])
+  const { title, tabHistory } = store.trees.find(tree => tree.id === store.currentId)
 
   return (
-    <Body isHeight={rows.length >= 2}>
+    <Body isHeight={tabHistory.length >= 2}>
       <Back />
       <Title>{title}</Title>
       {
-        rows.map(({ copy, time }, key) => (
+        tabHistory.map(({ copy, time }, key) => (
           <Textarea
             value={copy}
-            onBlur={() => setRow(r => r.filter(r => r.copy !== ''))}
+            onBlur={
+              () =>
+                dispatch({
+                  type: 'update-tab-history',
+                  payload: {
+                    id: store.currentId,
+                    tabHistory: tabHistory.filter(row => row.copy !== '')
+                  }
+                })
+            }
             onChange={
               ({ target: { value } }) => {
-                setRow(
-                  rows => rows.map(
-                    row => row.time === time
-                      ? ({ ...row, copy: value })
-                      : row
-                  )
-                )
+                dispatch({
+                  type: 'update-tab-history',
+                  payload: {
+                    id: store.currentId,
+                    tabHistory: tabHistory.map(
+                      row => row.time === time
+                        ? ({ ...row, copy: value })
+                        : row
+                    )
+                  }
+                })
               }
             }
             key={key}

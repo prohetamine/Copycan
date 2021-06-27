@@ -1,31 +1,33 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import ReactDOM from 'react-dom'
-import { HashRouter } from 'react-router-dom'
+import { BrowserRouter, useHistory } from 'react-router-dom'
+import { Provider, useDispatch, useSelector } from 'react-redux'
 import './index.css'
+import AppPathname from './components/app-pathname'
 import App from './app.js'
+import store from './store'
 
-if (window.localStorage.data === undefined) {
-  window.localStorage.data = JSON.stringify({
-    settings: {
-      urls: [],
-      action_global_settings: false,
-      action_content_settings: false,
-      action_options_copy: false,
-      content_delete: false,
-      save_time: true,
-      save_date: true,
-      save_link: true,
-      ctrlCx3: true
-    },
-    trees: []
-  })
+store.subscribe(() => {
+  window.localStorage.appData = JSON.stringify(store.getState())
+})
 
-  window.localStorage.appPathname = '/get-started'
-}
+setInterval(() => {
+  const currentState = JSON.stringify(store.getState())
+  const newState = window.localStorage.appData
+
+  if (currentState.length !== newState.length) {
+    store.dispatch({ type: 'update_state', payload: JSON.parse(newState) })
+  }
+}, 2000)
+
 
 ReactDOM.render(
-  <HashRouter>
-    <App />
-  </HashRouter>,
+  <Provider store={store}>
+    <BrowserRouter>
+      <AppPathname>
+        <App />
+      </AppPathname>
+    </BrowserRouter>
+  </Provider>,
   document.getElementById('root')
 );

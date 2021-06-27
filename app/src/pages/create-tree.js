@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import { useDispatch } from 'react-redux'
 import { Route, useHistory } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import createId from './../lib/create-id.js'
 
 import Logo from './../components/logo.js'
 import Input from './../components/input.js'
@@ -20,27 +20,14 @@ const Body = styled.div`
 `
 
 const CreateTree = () => {
+  const dispatch = useDispatch()
   const history = useHistory()
+
   const [title, setTitle] = useState('')
 
   const createTree = () => {
     if (title.length !== 0) {
-      const { trees, settings } = JSON.parse(window.localStorage.data)
-
-      window.localStorage.data = JSON.stringify({
-        trees: [
-          ...trees,
-          {
-            title,
-            date_create: 100000000000,
-            id: createId(),
-            settings,
-            tab: []
-          }
-        ],
-        settings
-      })
-
+      dispatch({ type: 'create-tree', payload: title })
       history.push('/tree-list?to=true')
     }
   }

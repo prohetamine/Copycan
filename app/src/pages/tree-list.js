@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import { useSelector, useDispatch } from 'react-redux'
 import { Route, useHistory } from 'react-router-dom'
 import { motion } from 'framer-motion'
 
@@ -23,28 +24,20 @@ const Body = styled.div`
 `
 
 const TreeList = () => {
-  const { trees, settings } = JSON.parse(window.localStorage.data)
-  const [list, setList] = useState(trees)
-
-  useEffect(() => {
-    const { trees, settings } = JSON.parse(window.localStorage.data)
-
-    window.localStorage.data = JSON.stringify({
-      trees: list,
-      settings
-    })
-  }, [list.length])
+  const dispatch = useDispatch()
+  const trees = useSelector(store => store.trees)
 
   return (
-    <Body isHeight={list.length >= 2}>
+    <Body isHeight={trees.length >= 2}>
       <Logo />
       <Navigation />
       <LinkButton to='/create-tree?to=true' color='blue' icon='arrow' style={{ marginBottom: '17px' }}>Добавить доску</LinkButton>
       {
-        list.map(({ id, title }, key) => (
+        trees.map(({ id, title }, key) => (
           <LinkButton
             key={key}
-            to={`/tree-tab/${id}?to=true`}
+            onClick={() => dispatch({ type: 'set-current-id', payload: id })}
+            to='/tree-tab/?to=true'
             color='green'
             icon='arrow'
             style={{ marginBottom: '17px' }}

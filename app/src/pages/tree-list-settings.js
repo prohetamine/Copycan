@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Route, useHistory } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
 import { motion } from 'framer-motion'
 
 import Logo from './../components/logo.js'
@@ -25,56 +26,15 @@ const Body = styled.div`
 `
 
 const TreeListSettings = () => {
-  const { trees, settings } = JSON.parse(window.localStorage.data)
-  const [actionGlobalSettings, setGlobalSettings]     = useState(settings.action_global_settings)
-      , [actionContentSettings, setContentSettings]   = useState(settings.action_content_settings)
-      , [actionsOptionsCopy, setOptionsCopy]          = useState(settings.action_options_copy)
-      , [linkInput, setLinkInput]                     = useState(settings.urls)
-      , [actionContentDelete, setContentDelete]       = useState(settings.content_delete)
-      , [actionsTimeSave, setTimeSave]                = useState(settings.save_time)
-      , [actionsDateSave, setDateSave]                = useState(settings.save_date)
-      , [actionsLinkSave, setLinkSave]                = useState(settings)
-      , [list, setList]                               = useState(trees)
-
-  useEffect(() => {
-    const { trees, settings } = JSON.parse(window.localStorage.data)
-
-    const update = {
-      urls:  linkInput,
-      content_delete: actionContentDelete,
-      save_time: actionsTimeSave,
-      save_date: actionsDateSave,
-      save_link: actionsLinkSave,
-      action_global_settings: actionGlobalSettings,
-      action_content_settings: actionContentSettings,
-      action_options_copy: actionsOptionsCopy
-    }
-
-    window.localStorage.data = JSON.stringify({
-      trees: list,
-      settings: {
-        ...settings,
-        ...update
-      }
-    })
-  }, [
-    list.length,
-    linkInput.map(l => l.length).join('+'),
-    actionContentDelete,
-    actionsTimeSave,
-    actionsDateSave,
-    actionsLinkSave,
-    actionGlobalSettings,
-    actionContentSettings,
-    actionsOptionsCopy
-  ])
+  const store = useSelector(store => store)
+  const dispatch = useDispatch()
 
   return (
-    <Body isHeight={list.length + (actionGlobalSettings ? 3 : 0) >= 2}>
+    <Body isHeight={store.trees.length + (store.settings.eye_global_settings ? 3 : 0) >= 2}>
       <Logo />
       <Navigation />
       <Button
-        onClick={() => setGlobalSettings(s => !s)}
+        onClick={() => dispatch({ type: 'eye-global-settings' })}
         color='blue'
         icon='eye'
         style={{ marginBottom: '17px' }}
@@ -82,11 +42,17 @@ const TreeListSettings = () => {
         Глобальные настройки
       </Button>
       {
-        actionGlobalSettings
+        store.settings.eye_global_settings
           ? (
             <>
               <Button
-                onClick={() => setLinkInput(s => [...s, ''])}
+                onClick={
+                  () =>
+                    dispatch({
+                      type: 'update_urls',
+                      payload: [...store.settings.urls, '']
+                    })
+                }
                 color='blue'
                 icon='plus'
                 style={{ marginBottom: '17px' }}
@@ -94,7 +60,7 @@ const TreeListSettings = () => {
                 Отправлять по url
               </Button>
               {
-                linkInput.map((li, key) => (
+                store.settings.urls.map((li, key) => (
                   <Input
                     key={key}
                     color='blue'
@@ -103,23 +69,23 @@ const TreeListSettings = () => {
                     style={{ marginBottom: '17px' }}
                     onBlur={
                       () =>
-                        setLinkInput(
-                          lis =>
-                            lis.filter(li => li.length !== 0)
-                        )
+                        dispatch({
+                          type: 'update_urls',
+                          payload: store.settings.urls.filter(url => url.length !== 0)
+                        })
                     }
                     onChange={
                       ({ target: { value } }) =>
-                        setLinkInput(
-                          lis =>
-                            lis.map((li, _key) => _key === key ? value : li)
-                        )
+                        dispatch({
+                          type: 'update_urls',
+                          payload: store.settings.urls.map((url, _key) => _key === key ? value : url)
+                        })
                     }
                   />
                 ))
               }
               <Button
-                onClick={() => setContentSettings(s => !s)}
+                onClick={() => dispatch({ type: 'eye-content-settings' })}
                 color='blue'
                 icon='eye'
                 style={{ marginBottom: '17px' }}
@@ -127,36 +93,36 @@ const TreeListSettings = () => {
                 Удалять содержимое
               </Button>
               {
-                actionContentSettings
+                store.settings.eye_content_settings
                   ? (
                     <>
                       <Checkbox
-                        value={actionContentDelete === false}
-                        onClick={() => setContentDelete(s => false)}
+                        value={store.settings.content_delete === false}
+                        onClick={() => dispatch({ type: 'content-delete', payload: false })}
                         color='blue'
                         style={{ marginBottom: '17px' }}
                       >
                         Не удалять
                       </Checkbox>
                       <Checkbox
-                        value={actionContentDelete === '3600000'}
-                        onClick={() => setContentDelete(s => '3600000')}
+                        value={store.settings.content_delete === 3600000}
+                        onClick={() => dispatch({ type: 'content-delete', payload: 3600000 })}
                         color='blue'
                         style={{ marginBottom: '17px' }}
                       >
                         Через 1 час
                       </Checkbox>
                       <Checkbox
-                        value={actionContentDelete === '18000000'}
-                        onClick={() => setContentDelete(s => '18000000')}
+                        value={store.settings.content_delete === 18000000}
+                        onClick={() => dispatch({ type: 'content-delete', payload: 18000000 })}
                         color='blue'
                         style={{ marginBottom: '17px' }}
                       >
                         Через 5 часов
                       </Checkbox>
                       <Checkbox
-                        value={actionContentDelete === '86400000'}
-                        onClick={() => setContentDelete(s => '86400000')}
+                        value={store.settings.content_delete === 86400000}
+                        onClick={() => dispatch({ type: 'content-delete', payload: 86400000 })}
                         color='blue'
                         style={{ marginBottom: '17px' }}
                       >
@@ -169,7 +135,7 @@ const TreeListSettings = () => {
                   )
               }
               <Button
-                onClick={() => setOptionsCopy(s => !s)}
+                onClick={() => dispatch({ type: 'eye-options-copy' })}
                 color='blue'
                 icon='eye'
                 style={{ marginBottom: '17px' }}
@@ -177,32 +143,40 @@ const TreeListSettings = () => {
                 Опции копирования
               </Button>
               {
-                actionsOptionsCopy
+                store.settings.eye_options_copy
                   ? (
                     <>
                       <Checkbox
-                        value={actionsTimeSave}
-                        onClick={() => setTimeSave(s => !s)}
+                        value={store.settings.save_time}
+                        onClick={() => dispatch({ type: 'save-time' })}
                         color='blue'
                         style={{ marginBottom: '17px' }}
                       >
                         Сохранять время
                       </Checkbox>
                       <Checkbox
-                        value={actionsDateSave}
-                        onClick={() => setDateSave(s => !s)}
+                        value={store.settings.save_date}
+                        onClick={() => dispatch({ type: 'save-date' })}
                         color='blue'
                         style={{ marginBottom: '17px' }}
                       >
                         Сохранять дату
                       </Checkbox>
                       <Checkbox
-                        value={actionsLinkSave}
-                        onClick={() => setLinkSave(s => !s)}
+                        value={store.settings.save_link}
+                        onClick={() => dispatch({ type: 'save-link' })}
                         color='blue'
                         style={{ marginBottom: '17px' }}
                       >
                         Сохранять ссылку
+                      </Checkbox>
+                      <Checkbox
+                        value={store.settings.ctrl_Cx3}
+                        onClick={() => dispatch({ type: 'ctrl-Cx3' })}
+                        color='blue'
+                        style={{ marginBottom: '17px' }}
+                      >
+                        Ctrl + C x3
                       </Checkbox>
                     </>
                   )
@@ -217,10 +191,11 @@ const TreeListSettings = () => {
           )
       }
       {
-        list.map(({ id, title }, key) => (
+        store.trees.map(({ id, title }, key) => (
           <LinkButton
             key={key}
-            to={`/tree-tab-settings/${id}/?to=true`}
+            onClick={() => dispatch({ type: 'set-current-id', payload: id })}
+            to='/tree-tab-settings?to=true'
             color='blue'
             icon='arrow'
             style={{ marginBottom: '17px' }}

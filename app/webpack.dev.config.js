@@ -14,11 +14,22 @@ module.exports = {
       filename: 'popup.js'
     },
     devServer: {
-        historyApiFallback: false,
+        historyApiFallback: true,
         contentBase: path.resolve(__dirname, './../extension/src'),
         open: true,
-        hot: true,
         port: 3000,
+        hot: true,
+        index: 'popup.html',
+        publicPath: '',
+        overlay: {
+          warnings: true,
+          errors: true,
+        },
+        after: (app) => {
+          app.get('*', (req, res) => {
+            res.redirect('/')
+          })
+        }
     },
     plugins: [
         new HtmlWebpackPlugin({
