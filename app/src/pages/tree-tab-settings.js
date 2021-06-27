@@ -26,7 +26,7 @@ const Body = styled.div`
   }
 `
 
-const TreeListSettings = ({ location }) => {
+const TreeTabSettings = ({ location }) => {
   const store = useSelector(store => store)
   const dispatch = useDispatch()
 
@@ -45,175 +45,159 @@ const TreeListSettings = ({ location }) => {
           ({ target: { value } }) => dispatch({ type: 'title', payload: { id: store.currentId, value } })
         }
       />
-      <Button
-        onClick={() => dispatch({ type: 'eye-global-settings', payload: { id: store.currentId } })}
-        color='blue'
-        icon='eye'
-        style={{ marginBottom: '17px' }}
-      >
-        Глобальные настройки
-      </Button>
-      {
-        settings.eye_global_settings
-          ? (
-            <>
-              <Button
-                onClick={
-                  () =>
-                    dispatch({
-                      type: 'update_urls',
-                      payload: {
-                        id: store.currentId,
-                        urls: [...settings.urls, '']
-                      }
-                    })
+      <>
+        <Button
+          onClick={
+            () =>
+              dispatch({
+                type: 'update_urls',
+                payload: {
+                  id: store.currentId,
+                  urls: [...settings.urls, '']
                 }
-                color='blue'
-                icon='plus'
-                style={{ marginBottom: '17px' }}
-              >
-                Отправлять по url
-              </Button>
-              {
-                store.settings.urls.map((li, key) => (
-                  <Input
-                    key={key}
-                    color='blue'
-                    value={li}
-                    placeholder='https://url?text=copycan'
-                    style={{ marginBottom: '17px' }}
-                    onBlur={
-                      () =>
-                        dispatch({
-                          type: 'update_urls',
-                          payload: {
-                            id: store.currentId,
-                            urls: settings.urls.filter(url => url.length !== 0)
-                          }
-                        })
+              })
+          }
+          color='blue'
+          icon='plus'
+          style={{ marginBottom: '17px' }}
+        >
+          Отправлять по url
+        </Button>
+        {
+          settings.urls.map((li, key) => (
+            <Input
+              key={key}
+              color='blue'
+              value={li}
+              placeholder='https://url?text=copycan'
+              style={{ marginBottom: '17px' }}
+              onBlur={
+                () =>
+                  dispatch({
+                    type: 'update_urls',
+                    payload: {
+                      id: store.currentId,
+                      urls: settings.urls.filter(url => url.length !== 0)
                     }
-                    onChange={
-                      ({ target: { value } }) =>
-                        dispatch({
-                          type: 'update_urls',
-                          payload: {
-                            id: store.currentId,
-                            urls: settings.urls.map((url, _key) => _key === key ? value : url)
-                          }
-                        })
+                  })
+              }
+              onChange={
+                ({ target: { value } }) =>
+                  dispatch({
+                    type: 'update_urls',
+                    payload: {
+                      id: store.currentId,
+                      urls: settings.urls.map((url, _key) => _key === key ? value : url)
                     }
-                  />
-                ))
+                  })
               }
-              <Button
-                onClick={() => dispatch({ type: 'eye-content-settings', payload: { id: store.currentId } })}
-                color='blue'
-                icon='eye'
-                style={{ marginBottom: '17px' }}
-              >
-                Удалять содержимое
-              </Button>
-              {
-                settings.eye_content_settings
-                  ? (
-                    <>
-                      <Checkbox
-                        value={settings.content_delete === false}
-                        onClick={() => dispatch({ type: 'content-delete', payload: { time: false, id: store.currentId } })}
-                        color='blue'
-                        style={{ marginBottom: '17px' }}
-                      >
-                        Не удалять
-                      </Checkbox>
-                      <Checkbox
-                        value={settings.content_delete === 3600000}
-                        onClick={() => dispatch({ type: 'content-delete', payload: { time: 3600000, id: store.currentId } })}
-                        color='blue'
-                        style={{ marginBottom: '17px' }}
-                      >
-                        Через 1 час
-                      </Checkbox>
-                      <Checkbox
-                        value={settings.content_delete === 18000000}
-                        onClick={() => dispatch({ type: 'content-delete', payload: { time: 18000000, id: store.currentId } })}
-                        color='blue'
-                        style={{ marginBottom: '17px' }}
-                      >
-                        Через 5 часов
-                      </Checkbox>
-                      <Checkbox
-                        value={settings.content_delete === 86400000}
-                        onClick={() => dispatch({ type: 'content-delete', payload: { time: 86400000, id: store.currentId } })}
-                        color='blue'
-                        style={{ marginBottom: '17px' }}
-                      >
-                        На следующий день
-                      </Checkbox>
-                    </>
-                  )
-                  : (
-                    null
-                  )
-              }
-              <Button
-                onClick={() => dispatch({ type: 'eye-options-copy', payload: { id: store.currentId } })}
-                color='blue'
-                icon='eye'
-                style={{ marginBottom: '17px' }}
-              >
-                Опции копирования
-              </Button>
-              {
-                settings.eye_options_copy
-                  ? (
-                    <>
-                      <Checkbox
-                        value={settings.save_time}
-                        onClick={() => dispatch({ type: 'save-time', payload: { id: store.currentId } })}
-                        color='blue'
-                        style={{ marginBottom: '17px' }}
-                      >
-                        Сохранять время
-                      </Checkbox>
-                      <Checkbox
-                        value={settings.save_date}
-                        onClick={() => dispatch({ type: 'save-date', payload: { id: store.currentId } })}
-                        color='blue'
-                        style={{ marginBottom: '17px' }}
-                      >
-                        Сохранять дату
-                      </Checkbox>
-                      <Checkbox
-                        value={settings.save_link}
-                        onClick={() => dispatch({ type: 'save-link', payload: { id: store.currentId } })}
-                        color='blue'
-                        style={{ marginBottom: '17px' }}
-                      >
-                        Сохранять ссылку
-                      </Checkbox>
-                      <Checkbox
-                        value={settings.ctrl_Cx3}
-                        onClick={() => dispatch({ type: 'ctrl-Cx3', payload: { id: store.currentId } })}
-                        color='blue'
-                        style={{ marginBottom: '17px' }}
-                      >
-                        Ctrl + C x3
-                      </Checkbox>
-                    </>
-                  )
-                  : (
-                    null
-                  )
-              }
-            </>
-          )
-          : (
-            null
-          )
-      }
+            />
+          ))
+        }
+        <Button
+          onClick={() => dispatch({ type: 'eye-content-settings', payload: { id: store.currentId } })}
+          color='blue'
+          icon='eye'
+          style={{ marginBottom: '17px' }}
+        >
+          Удалять содержимое
+        </Button>
+        {
+          settings.eye_content_settings
+            ? (
+              <>
+                <Checkbox
+                  value={settings.content_delete === false}
+                  onClick={() => dispatch({ type: 'content-delete', payload: { time: false, id: store.currentId } })}
+                  color='blue'
+                  style={{ marginBottom: '17px' }}
+                >
+                  Не удалять
+                </Checkbox>
+                <Checkbox
+                  value={settings.content_delete === 3600000}
+                  onClick={() => dispatch({ type: 'content-delete', payload: { time: 3600000, id: store.currentId } })}
+                  color='blue'
+                  style={{ marginBottom: '17px' }}
+                >
+                  Через 1 час
+                </Checkbox>
+                <Checkbox
+                  value={settings.content_delete === 18000000}
+                  onClick={() => dispatch({ type: 'content-delete', payload: { time: 18000000, id: store.currentId } })}
+                  color='blue'
+                  style={{ marginBottom: '17px' }}
+                >
+                  Через 5 часов
+                </Checkbox>
+                <Checkbox
+                  value={settings.content_delete === 86400000}
+                  onClick={() => dispatch({ type: 'content-delete', payload: { time: 86400000, id: store.currentId } })}
+                  color='blue'
+                  style={{ marginBottom: '17px' }}
+                >
+                  На следующий день
+                </Checkbox>
+              </>
+            )
+            : (
+              null
+            )
+        }
+        <Button
+          onClick={() => dispatch({ type: 'eye-options-copy', payload: { id: store.currentId } })}
+          color='blue'
+          icon='eye'
+          style={{ marginBottom: '17px' }}
+        >
+          Опции копирования
+        </Button>
+        {
+          settings.eye_options_copy
+            ? (
+              <>
+                <Checkbox
+                  value={settings.save_time}
+                  onClick={() => dispatch({ type: 'save-time', payload: { id: store.currentId } })}
+                  color='blue'
+                  style={{ marginBottom: '17px' }}
+                >
+                  Сохранять время
+                </Checkbox>
+                <Checkbox
+                  value={settings.save_date}
+                  onClick={() => dispatch({ type: 'save-date', payload: { id: store.currentId } })}
+                  color='blue'
+                  style={{ marginBottom: '17px' }}
+                >
+                  Сохранять дату
+                </Checkbox>
+                <Checkbox
+                  value={settings.save_link}
+                  onClick={() => dispatch({ type: 'save-link', payload: { id: store.currentId } })}
+                  color='blue'
+                  style={{ marginBottom: '17px' }}
+                >
+                  Сохранять ссылку
+                </Checkbox>
+                <Checkbox
+                  value={settings.cancel_event}
+                  onClick={() => dispatch({ type: 'cancel-event', payload: { id: store.currentId } })}
+                  color='blue'
+                  style={{ marginBottom: '17px' }}
+                >
+                  Уведомление отмены
+                </Checkbox>
+              </>
+            )
+            : (
+              null
+            )
+        }
+      </>
       <Prohetamine />
     </Body>
   )
 }
 
-export default TreeListSettings
+export default TreeTabSettings

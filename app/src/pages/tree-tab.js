@@ -63,23 +63,23 @@ const TreeTab = () => {
   const store = useSelector(store => store)
   const dispatch = useDispatch()
 
-  const { title, tabHistory } = store.trees.find(tree => tree.id === store.currentId)
+  const { title, tabHistory } = store.trees.find(tree => tree.id === store.currentId) || ({ title: '', tabHistory: [] })
 
   return (
-    <Body isHeight={tabHistory.length >= 2}>
+    <Body isHeight={tabHistory.length >= 3}>
       <Back />
       <Title>{title}</Title>
       {
-        tabHistory.map(({ copy, time }, key) => (
+        tabHistory.map(({ text, id }, key) => (
           <Textarea
-            value={copy}
+            value={text}
             onBlur={
               () =>
                 dispatch({
                   type: 'update-tab-history',
                   payload: {
                     id: store.currentId,
-                    tabHistory: tabHistory.filter(row => row.copy !== '')
+                    tabHistory: tabHistory.filter(row => row.text !== '')
                   }
                 })
             }
@@ -90,8 +90,8 @@ const TreeTab = () => {
                   payload: {
                     id: store.currentId,
                     tabHistory: tabHistory.map(
-                      row => row.time === time
-                        ? ({ ...row, copy: value })
+                      row => row.id === id
+                        ? ({ ...row, text: value })
                         : row
                     )
                   }

@@ -171,12 +171,12 @@ const TreeListSettings = () => {
                         Сохранять ссылку
                       </Checkbox>
                       <Checkbox
-                        value={store.settings.ctrl_Cx3}
-                        onClick={() => dispatch({ type: 'ctrl-Cx3' })}
+                        value={store.settings.cancel_event}
+                        onClick={() => dispatch({ type: 'cancel-event' })}
                         color='blue'
                         style={{ marginBottom: '17px' }}
                       >
-                        Ctrl + C x3
+                        Уведомление отмены
                       </Checkbox>
                     </>
                   )

@@ -14,7 +14,7 @@ const defaultState = {
     save_time: true,
     save_date: true,
     save_link: true,
-    ctrl_Cx3: false
+    cancel_event: false
   },
   trees: []
 }
@@ -59,12 +59,7 @@ const store = createStore((state, action) => {
           date_create: new Date() - 0,
           id: createId(),
           settings: state.settings,
-          tabHistory: [{
-            copy: '1234567',
-            time: new Date() - 0,
-            date: new Date() - 0,
-            link: window.location.href
-          }]
+          tabHistory: []
         }
       ]
     }
@@ -304,7 +299,7 @@ const store = createStore((state, action) => {
     }
   }
 
-  if (action.type === 'ctrl-Cx3') {
+  if (action.type === 'cancel-event') {
     if (action.payload && action.payload.id) {
       return {
         ...state,
@@ -314,7 +309,7 @@ const store = createStore((state, action) => {
                         ...tree,
                         settings: {
                           ...tree.settings,
-                          ctrl_Cx3: !tree.settings.ctrl_Cx3
+                          cancel_event: !tree.settings.cancel_event
                         }
                       })
                     : tree
@@ -326,7 +321,7 @@ const store = createStore((state, action) => {
       ...state,
       settings: {
         ...state.settings,
-        ctrl_Cx3: !state.settings.ctrl_Cx3
+        cancel_event: !state.settings.cancel_event
       }
     }
   }
