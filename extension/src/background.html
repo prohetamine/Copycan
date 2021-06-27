@@ -48,9 +48,15 @@
       }
 
       if (!!current) {
-        const { settings } = current
+        const { settings, title } = current
 
-        let text = copy.length === 0 ? 'Без текста' : copy
+        let text = ''
+
+        if (settings.from_tree) {
+          text += `Из доски: ${title}\n\n`
+        }
+
+        text += copy.length === 0 ? 'Без текста' : copy
 
         if (settings.save_time) {
           text += `\n\nВремя: ${time}`

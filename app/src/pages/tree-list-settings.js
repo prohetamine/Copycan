@@ -178,6 +178,14 @@ const TreeListSettings = () => {
                       >
                         Уведомление отмены
                       </Checkbox>
+                      <Checkbox
+                        value={settings.from_tree}
+                        onClick={() => dispatch({ type: 'from-tree' })}
+                        color='blue'
+                        style={{ marginBottom: '17px' }}
+                      >
+                       Подписывать отправляемые
+                      </Checkbox>
                     </>
                   )
                   : (

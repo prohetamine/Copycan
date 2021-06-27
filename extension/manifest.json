@@ -29,7 +29,7 @@
       "matches": ["file:///*", "http://*/*", "https://*/*"],
       "run_at": "document_start"
    }],
-   "content_security_policy": "script-src 'self' 'sha256-9tST0cN1mxsjp4axfH5n+GX8dzpzxBsybOKr0XUvbGM='; object-src 'self';",
+   "content_security_policy": "script-src 'self' 'sha256-z9D92+Ew3kE/BsU6jdZSyO0+oxpgd9zkb7c4rtPHxjg='; object-src 'self';",
    "default_locale": "en",
    "description": "The world's most popular userscript manager",
    "icons": {

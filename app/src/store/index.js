@@ -14,7 +14,8 @@ const defaultState = {
     save_time: true,
     save_date: true,
     save_link: true,
-    cancel_event: false
+    cancel_event: false,
+    from_tree: true
   },
   trees: []
 }
@@ -322,6 +323,33 @@ const store = createStore((state, action) => {
       settings: {
         ...state.settings,
         cancel_event: !state.settings.cancel_event
+      }
+    }
+  }
+
+  if (action.type === 'from-tree') {
+    if (action.payload && action.payload.id) {
+      return {
+        ...state,
+        trees: state.trees.map(
+          tree => tree.id === action.payload.id
+                    ? ({
+                        ...tree,
+                        settings: {
+                          ...tree.settings,
+                          from_tree: !tree.settings.from_tree
+                        }
+                      })
+                    : tree
+        )
+      }
+    }
+
+    return {
+      ...state,
+      settings: {
+        ...state.settings,
+        from_tree: !state.settings.from_tree
       }
     }
   }

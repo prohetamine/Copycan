@@ -29,7 +29,28 @@ const Title = styled.div`
   font-size: 22px;
   display: flex;
   align-items: center;
-  text-align: center;
+  width: 273px;
+  color: #3C3C3C;
+  margin-top: 20px;
+  margin-bottom: 25px;
+`
+
+const B = styled.span`
+  font-weight: 900;
+`
+
+const Select = styled.span`
+  padding: 0px 4px;
+  background: #eee;
+  color: #333;
+  border-radius: 3px;
+`
+
+const Description = styled.div`
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 19px;
   width: 273px;
   color: #3C3C3C;
   margin-top: 20px;
@@ -68,7 +89,15 @@ const TreeTab = () => {
   return (
     <Body isHeight={tabHistory.length >= 3}>
       <Back />
-      <Title>{title}</Title>
+      {
+        tabHistory.length !== 0
+          ? (
+            <Title>{title}</Title>
+          )
+          : (
+            <Description>Для карточки «<B>{title}</B>» еще нет скопированных объектов, выделите необходимый текст и используйте сочетание клавиш <Select>Ctrl + C</Select> затем сразу <Select>Ctrl + V</Select></Description>
+          )
+      }
       {
         tabHistory.map(({ text, id }, key) => (
           <Textarea

@@ -188,6 +188,14 @@ const TreeTabSettings = ({ location }) => {
                 >
                   Уведомление отмены
                 </Checkbox>
+                <Checkbox
+                  value={settings.from_tree}
+                  onClick={() => dispatch({ type: 'from-tree', payload: { id: store.currentId } })}
+                  color='blue'
+                  style={{ marginBottom: '17px' }}
+                >
+                 Подписывать отправляемые
+                </Checkbox>
               </>
             )
             : (
