@@ -1,12 +1,12 @@
 {
    "background": {
-      "page": "background.html"
+      "page": "src/background.html"
    },
    "browser_action": {
       "default_icon": {
 
       },
-      "default_popup": "dist/index.html",
+      "default_popup": "src/popup.html",
       "default_title": "Copycan"
    },
    "commands": {
@@ -25,7 +25,7 @@
    },
    "content_scripts": [{
       "all_frames": true,
-      "js": ["content.js", "dist/main.js"],
+      "js": ["src/content.js", "src/popup.js"],
       "matches": [ "file:///*", "http://*/*", "https://*/*" ],
       "run_at": "document_start"
    }],
