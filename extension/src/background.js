@@ -53,7 +53,7 @@ const copycan = async ({
       text += `Из доски: ${title}\n\n`
     }
 
-    text += copy.length === 0 ? 'Без текста' : copy
+    text += copy.length === 0 ? link : copy
 
     if (settings.save_time) {
       text += `\n\nВремя: ${time}`
@@ -108,7 +108,7 @@ const copycan = async ({
                 tabHistory: [
                   {
                     text,
-                    copy: copy.length < 1 ? link : copy,
+                    copy: copy.length === 0 ? link : copy,
                     id,
                     create_time
                   },
