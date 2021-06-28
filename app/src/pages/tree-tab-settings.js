@@ -74,7 +74,7 @@ const TreeTabSettings = ({ location }) => {
               onBlur={
                 () =>
                   dispatch({
-                    type: 'update_urls',
+                    type: 'update-urls',
                     payload: {
                       id: store.currentId,
                       urls: settings.urls.filter(url => url.length !== 0)
@@ -84,7 +84,7 @@ const TreeTabSettings = ({ location }) => {
               onChange={
                 ({ target: { value } }) =>
                   dispatch({
-                    type: 'update_urls',
+                    type: 'update-urls',
                     payload: {
                       id: store.currentId,
                       urls: settings.urls.map((url, _key) => _key === key ? value : url)

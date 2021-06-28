@@ -49,7 +49,7 @@ const TreeListSettings = () => {
                 onClick={
                   () =>
                     dispatch({
-                      type: 'update_urls',
+                      type: 'update-urls',
                       payload: [...store.settings.urls, '']
                     })
                 }
@@ -77,7 +77,7 @@ const TreeListSettings = () => {
                     onChange={
                       ({ target: { value } }) =>
                         dispatch({
-                          type: 'update_urls',
+                          type: 'update-urls',
                           payload: store.settings.urls.map((url, _key) => _key === key ? value : url)
                         })
                     }
@@ -179,7 +179,7 @@ const TreeListSettings = () => {
                         Уведомление отмены
                       </Checkbox>
                       <Checkbox
-                        value={settings.from_tree}
+                        value={store.settings.from_tree}
                         onClick={() => dispatch({ type: 'from-tree' })}
                         color='blue'
                         style={{ marginBottom: '17px' }}
