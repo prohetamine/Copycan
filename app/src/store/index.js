@@ -11,9 +11,9 @@ const defaultState = {
     eye_options_copy: false,
     urls: [],
     content_delete: false,
-    save_time: true,
-    save_date: true,
-    save_link: true,
+    save_time: false,
+    save_date: false,
+    save_link: false,
     cancel_event: false,
     from_tree: true
   },
