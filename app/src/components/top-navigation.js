@@ -129,7 +129,7 @@ const Button = (props) => {
 
 const Back = () => {
   const dispatch = useDispatch()
-  const { currentId } = useSelector(store => store)
+  const { trees, currentId } = useSelector(store => store)
 
   return (
     <Body>
