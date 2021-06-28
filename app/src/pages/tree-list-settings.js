@@ -205,7 +205,7 @@ const TreeListSettings = () => {
             onClick={() => dispatch({ type: 'current-id', payload: id })}
             to='/tree-tab-settings?to=true'
             color='blue'
-            icon='arrow'
+            icon='minisettings'
             style={{ marginBottom: '17px' }}
           >
             {title}

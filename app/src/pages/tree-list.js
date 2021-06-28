@@ -39,7 +39,7 @@ const TreeList = () => {
             onClick={() => dispatch({ type: 'current-id', payload: id })}
             to='/tree-tab/?to=true'
             color='green'
-            icon='arrow'
+            icon='minilist'
             style={{ marginBottom: '17px' }}
           >
             {title}

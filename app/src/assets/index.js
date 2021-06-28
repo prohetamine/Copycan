@@ -5,6 +5,8 @@ import plus from './../assets/plus.svg'
 import eye from './../assets/eye.svg'
 import enable from './../assets/enable.svg'
 import disable from './../assets/disable.svg'
+import minilist from './../assets/mini-list.svg'
+import minisettings from './../assets/mini-settings.svg'
 import _delete from './../assets/delete.svg'
 
 import trash from './../assets/trash.svg'
@@ -39,6 +41,8 @@ const ICONS = {
   disable,
   enable,
   delete: _delete,
+  minilist,
+  minisettings,
   trash,
   offon,
   list,
