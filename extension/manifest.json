@@ -1,27 +1,19 @@
 {
-   "background": {
-      "page": "src/background.html"
-   },
+  "name": "Copycan",
+  "short_name": "Copycan",
+  "manifest_version": 2,
+  "description": "Clipboard and Analytical Manager",
+  "version": "1.0.0",
+  "permissions": ["notifications", "tabs"],
+  "background": {
+    "page": "src/background.html"
+  },
    "browser_action": {
       "default_icon": {
 
       },
       "default_popup": "src/popup.html",
       "default_title": "Copycan"
-   },
-   "commands": {
-      "open-dashboard": {
-         "description": "Open dashboard"
-      },
-      "open-dashboard-with-running-scripts": {
-         "description": "Open dashboard with the current tab's URL used as filter"
-      },
-      "open-new-script": {
-         "description": "Open new script tab"
-      },
-      "toggle-enable": {
-         "description": "Toggle enable state"
-      }
    },
    "content_scripts": [{
       "all_frames": true,
@@ -30,20 +22,12 @@
       "run_at": "document_start"
    }],
    "content_security_policy": "script-src 'self' 'sha256-bJkF9Dc01mYEfyMWX4rR1uPjf/vaCZYWU/uL3MeT+vQ='; object-src 'self';",
-   "default_locale": "en",
-   "description": "The world's most popular userscript manager",
+   "default_locale": "ru",
    "icons": {
 
    },
    "incognito": "split",
-   "manifest_version": 2,
    "minimum_chrome_version": "64.0.0.0",
-   "name": "Copycan",
    "offline_enabled": true,
-   "optional_permissions": ["downloads"],
-   "permissions": [ "notifications", "unlimitedStorage", "tabs", "idle", "alarms", "webNavigation", "webRequest", "webRequestBlocking", "storage", "contextMenus", "chrome://favicon/", "clipboardWrite", "cookies", "declarativeContent", "\u003Call_urls>" ],
-   "short_name": "Copycan",
-   "update_url": "https://clients2.google.com/service/update2/crx",
-   "version": "1.0.0",
-   "manifest_version": 2
+   "update_url": "https://clients2.google.com/service/update2/crx"
 }

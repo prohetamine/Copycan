@@ -29,6 +29,10 @@ try {
 }
 
 const store = createStore((state, action) => {
+  if (action.type === 'update-state') {
+    return action.payload
+  }
+
   if (action.type === 'work') {
     return {
       ...state,
@@ -165,7 +169,7 @@ const store = createStore((state, action) => {
     }
   }
 
-  if (action.type === 'update_urls') {
+  if (action.type === 'update-urls') {
     if (action.payload && action.payload.id) {
       return {
         ...state,

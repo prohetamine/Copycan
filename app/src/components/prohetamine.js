@@ -11,7 +11,7 @@ const Body = styled.div`
 `
 
 const GithubLink = styled.a`
-  color: #D3D3D3;
+  color: #9C9C9C;
   font-weight: bold;
   margin: 0px 7px;
 `
@@ -39,7 +39,7 @@ const KeyBoard = styled.div`
 const Prohetamine = () => {
   return (
     <Body>
-      <By>By <GithubLink href='https://github.com/prohetamine/copycan'>Prohetamine</GithubLink> 2021</By>
+      <By>By <GithubLink href='https://github.com/prohetamine/copycan' target='_blank'>Prohetamine</GithubLink> 2021</By>
       <KeyBoard>Made with ♥ keyboard</KeyBoard>
     </Body>
   )

@@ -50,7 +50,7 @@ const TreeTabSettings = ({ location }) => {
           onClick={
             () =>
               dispatch({
-                type: 'update_urls',
+                type: 'update-urls',
                 payload: {
                   id: store.currentId,
                   urls: [...settings.urls, '']

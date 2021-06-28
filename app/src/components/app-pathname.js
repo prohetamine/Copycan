@@ -9,7 +9,7 @@ const AppPathname = ({ children }) => {
 
   useEffect(() => {
     history.push(store.appPathname)
-  }, [])
+  }, [store.appPathname !== null])
 
   useEffect(() => {
     history.listen(({ pathname }) => {

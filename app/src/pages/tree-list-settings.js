@@ -70,7 +70,7 @@ const TreeListSettings = () => {
                     onBlur={
                       () =>
                         dispatch({
-                          type: 'update_urls',
+                          type: 'update-urls',
                           payload: store.settings.urls.filter(url => url.length !== 0)
                         })
                     }

@@ -7,6 +7,8 @@ import AppPathname from './components/app-pathname'
 import App from './app.js'
 import store from './store'
 
+window.localStorage.badgeText = '0'
+
 store.subscribe(() => {
   window.localStorage.appData = JSON.stringify(store.getState())
 })
@@ -16,7 +18,7 @@ setInterval(() => {
   const newState = window.localStorage.appData
 
   if (currentState.length !== newState.length) {
-    store.dispatch({ type: 'update_state', payload: JSON.parse(newState) })
+    store.dispatch({ type: 'update-state', payload: JSON.parse(newState) })
   }
 }, 2000)
 

@@ -1,5 +1,8 @@
 const getState = () => JSON.parse(window.localStorage.appData)
 const setState = state => window.localStorage.appData = JSON.stringify(state)
+const getBadgeText = () => parseInt(window.localStorage.badgeText)
+const setBadgeText = badgeText => window.localStorage.badgeText = badgeText
+
 
 const Notify = message => new Promise(res => {
   const notifyId = Math.random()+''
@@ -88,6 +91,14 @@ const copycan = async ({
       )
     } catch (e) {}
 
+    if (getBadgeText() === 0) {
+      setBadgeText(1)
+    } else {
+      const bt = getBadgeText()
+
+      setBadgeText(bt + 1)
+    }
+
     state = {
       ...state,
       trees: state.trees.map(
@@ -151,3 +162,13 @@ setInterval(() => {
 
   setState(state)
 }, 10000)
+
+setInterval(() => {
+  const bt = getBadgeText()
+
+  chrome.browserAction.setBadgeText({
+    text: bt < 9
+            ? `${bt ? bt : ''}`
+            : `10+`
+  })
+}, 1000)
