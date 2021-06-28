@@ -10,7 +10,11 @@
   },
    "browser_action": {
       "default_icon": {
-
+        "16": "images/icon16.png",
+        "19": "images/icon19.png",
+        "24": "images/icon24.png",
+        "32": "images/icon32.png",
+        "38": "images/icon38.png"
       },
       "default_popup": "src/popup.html",
       "default_title": "Copycan"
@@ -24,7 +28,9 @@
    "content_security_policy": "script-src 'self' 'sha256-bJkF9Dc01mYEfyMWX4rR1uPjf/vaCZYWU/uL3MeT+vQ='; object-src 'self';",
    "default_locale": "ru",
    "icons": {
-
+      "128": "images/icon128.png",
+      "32": "images/icon32.png",
+      "48": "images/icon48.png"
    },
    "incognito": "split",
    "minimum_chrome_version": "64.0.0.0",

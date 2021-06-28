@@ -18,18 +18,24 @@ const Block = (() => {
   const Body = styled.div`
     width: 18px;
     height: 18px;
-    background: ${props => props.bin ? '#9C9C9C' : '#D3D3D3'};
+    background: ${
+      props => props.bin > 0.3 && props.bin < 0.4
+                ? '#9C9C9C'
+                : props.bin > 0.6 && props.bin < 1
+                    ? '#D3D3D3'
+                    : Math.random() > 0.5 ? '#1183B5' : '#11B570'
+    };
     border-radius: 4px;
     display: inline-block;
     margin: 2px;
   `
 
   return () => {
-    const [bin, setBin] = useState()
+    const [bin, setBin] = useState(Math.random())
 
     useEffect(() => {
       const timeId = setInterval(() => {
-        setBin(Math.random() > 0.5)
+        setBin(Math.random())
       }, 1000)
 
       return () => timeId()
