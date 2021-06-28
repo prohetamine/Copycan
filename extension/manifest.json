@@ -3,7 +3,7 @@
   "short_name": "Copycan",
   "manifest_version": 2,
   "description": "Clipboard and Analytical Manager",
-  "version": "1.0.0",
+  "version": "1.4.0",
   "permissions": ["notifications", "tabs"],
   "background": {
     "page": "src/background.html"

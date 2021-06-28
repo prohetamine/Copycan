@@ -12,6 +12,10 @@ const Body = styled.div`
   margin-bottom: 24px;
 `
 
+const Wrapper = styled.div`
+  display: flex;
+`
+
 const ButtonBody = styled.div`
   margin-right: 5px;
   margin-top: 5px;
@@ -125,7 +129,7 @@ const Button = (props) => {
 
 const Back = () => {
   const dispatch = useDispatch()
-  const { trees, currentId } = useSelector(store => store)
+  const { currentId } = useSelector(store => store)
 
   return (
     <Body>
@@ -135,15 +139,33 @@ const Back = () => {
         color='blue'
         icon='arrowleft'
       />
-      <Button
-        onClick={() => {
-          window.chrome.tabs.create({ 'url': `src/protocol.html?tree=${encodeURIComponent(JSON.stringify(trees.find(tree => tree.id === currentId)))}`, 'selected' :true }, tab => {
-
-          })
-        }}
-        color='blue'
-        icon='arrowleft'
-      >Протокол</Button>
+      <Wrapper>
+        <Button
+          style={{ marginRight: '0px' }}
+          onClick={() => {
+            dispatch({
+              type: 'update-tab-history',
+              payload: {
+                id: currentId,
+                tabHistory: []
+              }
+            })
+          }}
+          color='blue'
+          icon='arrowleft'
+        >
+          Очистить
+        </Button>
+        <Button
+          onClick={() => {
+            window.chrome.tabs.create({ 'url': `src/protocol.html?tree=${encodeURIComponent(JSON.stringify(trees.find(tree => tree.id === currentId)))}`, 'selected' :true }, () => {})
+          }}
+          color='blue'
+          icon='arrowleft'
+        >
+          Протокол
+        </Button>
+      </Wrapper>
     </Body>
   )
 }
