@@ -108,6 +108,7 @@ const copycan = async ({
                 tabHistory: [
                   {
                     text,
+                    copy,
                     id,
                     create_time
                   },

@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { motion } from 'framer-motion'
 import queryString from 'query-string'
 
-import Back from './../components/back.js'
+import TopNavigation from './../components/top-navigation.js'
 import Button from './../components/button.js'
 import Prohetamine from './../components/prohetamine.js'
 
@@ -88,7 +88,7 @@ const TreeTab = () => {
 
   return (
     <Body isHeight={tabHistory.length >= 3}>
-      <Back />
+      <TopNavigation />
       {
         tabHistory.length !== 0
           ? (

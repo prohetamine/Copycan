@@ -38,7 +38,7 @@ const Block = (() => {
         setBin(Math.random())
       }, 1000)
 
-      return () => timeId()
+      return () => clearInterval(timeId)
     }, [])
 
     return (

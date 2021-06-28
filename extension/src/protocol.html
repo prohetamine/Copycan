@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <title>Протокол</title>
+</head>
+<body>
+  <style>
+    body {
+      margin: 0px;
+    }
+
+    .wrapper {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .protocol {
+      margin-top: 49px;
+      margin-bottom: 56px;
+      width: 703px;
+      font-family: Roboto;
+      font-style: normal;
+      font-weight: 900;
+      font-size: 33px;
+      line-height: 39px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      letter-spacing: 0.1em;
+      color: #000000;
+    }
+
+    .title {
+      width: 703px;
+      font-family: Roboto;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 26px;
+      line-height: 30px;
+      display: flex;
+      letter-spacing: 0.1em;
+      color: #000000
+      margin-bottom: 15px;
+    }
+
+    .id,.create_time {
+      width: 703px;
+      height: 23px;
+      font-family: Roboto;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 23px;
+      display: flex;
+      align-items: center;
+      letter-spacing: 0.1em;
+      color: #000000;
+    }
+
+    .line {
+      width: 703px;
+      font-family: Roboto;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 20px;
+      line-height: 23px;
+      display: flex;
+      align-items: center;
+      letter-spacing: 0.1em;
+      color: #000000;
+    }
+
+    .row {
+      width: 703px;
+      max-width: 703px;
+      word-wrap: break-word;
+      font-family: Roboto;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 22px;
+      letter-spacing: 0.1em;
+      color: #000000;
+    }
+
+    .info {
+      position: fixed;
+      left: 10px;
+      top: 10px;
+      font-family: Roboto;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 20px;
+      line-height: 23px;
+      display: flex;
+      align-items: center;
+      letter-spacing: 0.1em;
+      border-bottom: 2px solid #000;
+      color: #000000;
+      cursor: pointer;
+    }
+  </style>
+  <div class='wrapper'>
+    <script>
+      const { title, tabHistory } = JSON.parse(decodeURIComponent(location.href).match(/{.+$/gi)[0])
+
+      document.querySelector('title').innerHTML = 'Протокол | ' + title
+
+      if (localStorage.textOnly === undefined) {
+        localStorage.textOnly = 'true'
+      }
+
+      document.write(`<div class='info'>${localStorage.textOnly === 'true' ? 'полные данные' : 'только текст'}</div>`)
+      document.write(`<div class='protocol'>протокол</div>`)
+      document.write(`<div class='title'>${title}</div>`)
+      document.write(`<div class='create_time'>Создана: 07/06/1999 в 19:30</div>`)
+      document.write(`<div class='id'>id: 6651-68090-48927-56321</div>`)
+      document.write(`<div class='line' style='margin-top: 20px;margin-bottom: 20px;'>---------------------------------------------------------------------------------------------</div>`)
+      tabHistory.forEach(({ text, copy }, i) => {
+        document.write(`<div class='row'>${localStorage.textOnly === 'true' ? copy : text}</div>`)
+        document.write(`<div class='line' style='margin-top: 36px;margin-bottom: 24px;'>---------------------------------------------------------------------------------------------</div>`)
+      })
+
+      document.querySelector('.info').addEventListener('click', () => {
+        localStorage.textOnly = localStorage.textOnly === 'false'
+                                  ? 'true'
+                                  : 'false'
+
+        location.reload()
+      })
+
+    </script>
+  </div>
+</body>
+</html>
