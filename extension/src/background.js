@@ -62,7 +62,9 @@ const copycan = async ({
     if (settings.save_time && settings.save_date) {
       text += `, дата: ${date}`
     } else {
-      text += `\n\nДата: ${date}`
+      if (settings.save_date) {
+        text += `\n\nДата: ${date}`
+      }
     }
 
     if (settings.save_link && link) {
