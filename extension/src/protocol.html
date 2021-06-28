@@ -125,7 +125,7 @@
       document.write(`<div class='id'>id: 6651-68090-48927-56321</div>`)
       document.write(`<div class='line' style='margin-top: 20px;margin-bottom: 20px;'>---------------------------------------------------------------------------------------------</div>`)
       tabHistory.forEach(({ text, copy }, i) => {
-        document.write(`<div class='row'>${localStorage.textOnly === 'true' ? copy : text}</div>`)
+        document.write(`<div class='row'>${localStorage.textOnly === 'true' ? copy.replace(/\n/gi, '<br />') : text.replace(/\n/gi, '<br />')}</div>`)
         document.write(`<div class='line' style='margin-top: 36px;margin-bottom: 24px;'>---------------------------------------------------------------------------------------------</div>`)
       })
 
