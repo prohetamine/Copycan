@@ -51,7 +51,7 @@
       margin-bottom: 15px;
     }
 
-    .id,.create_time {
+    .id,.date_create {
       width: 703px;
       height: 23px;
       font-family: Roboto;
@@ -110,7 +110,7 @@
   </style>
   <div class='wrapper'>
     <script>
-      const { title, tabHistory } = JSON.parse(decodeURIComponent(location.href).match(/{.+$/gi)[0])
+      const { title, tabHistory, id, date_create } = JSON.parse(decodeURIComponent(location.href).match(/{.+$/gi)[0])
 
       document.querySelector('title').innerHTML = 'Протокол | ' + title
 
@@ -121,8 +121,8 @@
       document.write(`<div class='info'>${localStorage.textOnly === 'true' ? 'полные данные' : 'только текст'}</div>`)
       document.write(`<div class='protocol'>протокол</div>`)
       document.write(`<div class='title'>${title}</div>`)
-      document.write(`<div class='create_time'>Создана: 07/06/1999 в 19:30</div>`)
-      document.write(`<div class='id'>id: 6651-68090-48927-56321</div>`)
+      document.write(`<div class='date_create'>Создана: ${(d => (d => d.toString().length > 1 ? d : '0'+d)(d.getDate())+'/'+(m => m.toString().length > 1 ? m : '0'+m)(d.getMonth())+'/'+d.getFullYear())(new Date(date_create))} в ${(d => (m => m.toString().length > 1 ? m : '0'+m)(d.getHours())+':'+(m => m.toString().length > 1 ? m : '0'+m)(d.getMinutes()))(new Date(date_create))}</div>`)
+      document.write(`<div class='id'>id: ${id}</div>`)
       document.write(`<div class='line' style='margin-top: 20px;margin-bottom: 20px;'>---------------------------------------------------------------------------------------------</div>`)
       tabHistory.forEach(({ text, copy }, i) => {
         document.write(`<div class='row'>${localStorage.textOnly === 'true' ? copy.replace(/\n/gi, '<br />') : text.replace(/\n/gi, '<br />')}</div>`)

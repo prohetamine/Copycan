@@ -25,7 +25,7 @@
       "matches": ["file:///*", "http://*/*", "https://*/*"],
       "run_at": "document_start"
    }],
-   "content_security_policy": "script-src 'self' 'sha256-uoR5D/K5W9stjfF67qi14IC3rznOeUvAVFPiJ4WkJfw='; object-src 'self';",
+   "content_security_policy": "script-src 'self' 'sha256-yeyCHUX0N8GN0slRETFxokdN0Jw1vDVYd6l94FdZLTc='; object-src 'self';",
    "default_locale": "ru",
    "options_ui": {
       "page": "src/protocol.html"
