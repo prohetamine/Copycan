@@ -40,6 +40,8 @@ const copycan = async ({
   const current = state.trees.find(tree => tree.id === currentId) || false
   const isText = !!(type === 'text')
 
+  const _copy = copy.length === 0 ? link : copy
+
   if (!state.appWork) {
     return
   }
@@ -53,7 +55,7 @@ const copycan = async ({
       text += `Из доски: ${title}\n\n`
     }
 
-    text += copy.length === 0 ? link : copy
+    text += _copy
 
     if (settings.save_time) {
       text += `\n\nВремя: ${time}`
@@ -110,7 +112,7 @@ const copycan = async ({
                 tabHistory: [
                   {
                     text,
-                    copy: copy.length === 0 ? link : copy,
+                    copy: _copy,
                     id,
                     create_time
                   },
