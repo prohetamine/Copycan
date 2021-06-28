@@ -108,7 +108,7 @@ const copycan = async ({
                 tabHistory: [
                   {
                     text,
-                    copy,
+                    copy: copy.length < 1 ? link : copy,
                     id,
                     create_time
                   },
