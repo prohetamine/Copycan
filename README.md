@@ -2,7 +2,7 @@
 
 Chrome Web Store: [Copycan](https://github.com/prohetamine/Copycan)
 
-![enter image description here](/media/main.gif)
+![enter image description here](/media/main.png)
 
 ![enter image description here](/media/1.png)
 
