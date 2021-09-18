@@ -10,7 +10,7 @@
 ### Why ?
 This extension was developed to collect and analyze pieces of information in a simpler format Ctrl + C and Ctrl + V. Internal settings allow you to copy information not only to the extension, but to print protocols and send information to another server, for example, to the vk bot or to the telegram channel or to any specified address, this is very convenient, my bot sends me a link to a video that I am watching on YouTube, at the moment, a note or a picture. The extension settings are limitless, they allow you to work with each individual board, how to modify the selected text by adding meta data such as time and date, as well as a link to the original source, and delete information from the extension after a certain period of time, it's cool!
 
-### С чего начать
+### Get started
 
 Installing the extension ```Clipboard and Analytical Manager```
 
