@@ -40,7 +40,7 @@ $ git clone git@github.com:prohetamine/Copycan.git
 
 ![example](https://github.com/prohetamine/Copycan/blob/main/media/8.png)
 
-Другие примеры из этого проекта можно найти тут: [examples](https://github.com/prohetamine/Copycan/blob/main/examples)
+Другие примеры из этого проекта можно найти тут: [примеры](https://github.com/prohetamine/Copycan/blob/main/examples)
 
 ### Контакты
 
